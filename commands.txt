@@ -1,0 +1,26 @@
+Installation
+
+Clone or copy the project and create a Python virtual environment:
+
+python3 -m venv .venv
+source .venv/bin/activate
+
+Install dependencies:
+
+pip install -r requirements.txt
+Running ECDAT
+
+Start the FastAPI server with:
+
+uvicorn backend.main:app --reload
+
+The dashboard is then available at:
+
+http://127.0.0.1:8000
+Running Tests
+
+Run the automated test suite with:
+
+python3 -m pytest -q
+
+The current test suite validates the scanner functionality.

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        ECDAT - Enterprise Cryptographic Discovery & Analysis Tool
+    </title>
+
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+
+<header>
+
+    <div class="header-content">
+
+        <div>
+            <h1>ECDAT</h1>
+
+            <p>
+                Enterprise Cryptographic Discovery &amp; Analysis Tool
+            </p>
+        </div>
+
+        <div class="status-indicator">
+            <span class="status-dot"></span>
+            Scanner Online
+        </div>
+
+    </div>
+
+</header>
+
+
+<main>
+
+    <!-- =========================
+         Scanner
+    ========================== -->
+
+    <section class="scanner">
+
+        <input
+            id="directory"
+            type="text"
+            value="sample_project"
+            placeholder="Enter directory to scan"
+            aria-label="Directory to scan"
+        >
+
+        <button onclick="runScan()">
+            Scan
+        </button>
+
+        <button
+            id="export-button"
+            class="export-button"
+            onclick="exportReport()"
+            disabled
+        >
+            Export Report
+        </button>
+
+    </section>
+
+
+    <!-- =========================
+         Security Status
+    ========================== -->
+
+    <section
+        id="security-status"
+        class="security-status neutral"
+    >
+
+        <div>
+
+            <span class="status-label">
+                SECURITY STATUS
+            </span>
+
+            <h2 id="security-title">
+                No Scan Performed
+            </h2>
+
+            <p id="security-message">
+                Run a scan to evaluate the cryptographic security posture.
+            </p>
+
+        </div>
+
+
+        <div class="security-score">
+
+            <span>
+                Risk Score
+            </span>
+
+            <strong id="security-risk">
+                0
+            </strong>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         Dashboard Cards
+    ========================== -->
+
+    <section class="cards">
+
+        <div class="card">
+            <span>Files Scanned</span>
+            <strong id="files-scanned">0</strong>
+        </div>
+
+
+        <div class="card">
+            <span>Total Findings</span>
+            <strong id="total">0</strong>
+        </div>
+
+
+        <div class="card critical">
+            <span>Critical</span>
+            <strong id="critical">0</strong>
+        </div>
+
+
+        <div class="card high">
+            <span>High</span>
+            <strong id="high">0</strong>
+        </div>
+
+
+        <div class="card medium">
+            <span>Medium</span>
+            <strong id="medium">0</strong>
+        </div>
+
+
+        <div class="card low">
+            <span>Low</span>
+            <strong id="low">0</strong>
+        </div>
+
+
+        <div class="card info">
+            <span>Info</span>
+            <strong id="info">0</strong>
+        </div>
+
+
+        <div class="card risk">
+            <span>Total Risk Score</span>
+            <strong id="risk">0</strong>
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         Findings
+    ========================== -->
+
+    <section>
+
+        <div class="section-heading">
+
+            <h2>
+                Findings
+            </h2>
+
+            <span id="finding-count">
+                0 findings
+            </span>
+
+        </div>
+
+
+        <!-- Search + filter -->
+
+        <div class="finding-controls">
+
+            <input
+                id="finding-search"
+                type="text"
+                placeholder="Search findings..."
+                aria-label="Search findings"
+            >
+
+
+            <select
+                id="severity-filter"
+                aria-label="Filter by severity"
+            >
+                <option value="All">
+                    All severities
+                </option>
+
+                <option value="Critical">
+                    Critical
+                </option>
+
+                <option value="High">
+                    High
+                </option>
+
+                <option value="Medium">
+                    Medium
+                </option>
+
+                <option value="Low">
+                    Low
+                </option>
+
+                <option value="Info">
+                    Info
+                </option>
+            </select>
+
+
+            <select
+                id="type-filter"
+                aria-label="Filter by detection type"
+            >
+                <option value="All">
+                    All types
+                </option>
+
+                <option value="Algorithm">
+                    Algorithm
+                </option>
+
+                <option value="Secret">
+                    Secret
+                </option>
+
+                <option value="Protocol">
+                    Protocol
+                </option>
+
+                <option value="API / Library">
+                    API / Library
+                </option>
+            </select>
+
+        </div>
+
+
+        <div id="results">
+
+            <div class="empty-state">
+
+                <h3>
+                    No scan performed
+                </h3>
+
+                <p>
+                    Enter a directory and click Scan to begin analysis.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         Scan History
+    ========================== -->
+
+    <section class="history-section">
+
+        <div class="section-heading">
+
+            <h2>
+                Scan History
+            </h2>
+
+            <button
+                class="refresh-button"
+                onclick="loadHistory()"
+            >
+                Refresh
+            </button>
+
+        </div>
+
+
+        <div id="history">
+
+            <div class="empty-state">
+
+                <h3>
+                    Loading history...
+                </h3>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<script src="/app.js"></script>
+
+</body>
+
+</html>
